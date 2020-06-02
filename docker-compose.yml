@@ -22,3 +22,14 @@ services:
       TZ: Asia/Tokyo
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    ports:
+      - 10081:80
+    volumes:
+      - ./phpmyadmin/sessions:/sessions
