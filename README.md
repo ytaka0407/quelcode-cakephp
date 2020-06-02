@@ -20,7 +20,7 @@
 
 ## docker の起動方法
 
-- docker-compose.yml がある場所で下記のコマンドを実行する。初回起動は時間がかかる
+- docker-compose.yml がある場所で下記のコマンドを実行する。初回起動には時間がかかる
 
   ```
   docker-compose up -d
@@ -81,7 +81,7 @@
   ./bin/cake migrations migrate
   ```
 
-## ブラウザでの auction アプリを表示する方法
+## ブラウザで オークションアプリを表示する方法
 
 - http://localhost:10080/auction にアクセスする
   - http://localhost:10080/users/add からユーザを作成できる
