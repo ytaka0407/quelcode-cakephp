@@ -1,59 +1,62 @@
-# docker-lemp-composer1
+# docker-mycakeapp2
 
-- laravel と cakephp がすぐに使える docker 環境が欲しかった
+- CakePHP 超入門のサンプルアプリ(オークションアプリ)の docker 環境
 
-## php コンテナの bash を実行するまで
+## docker 起動前の準備
 
-1. このリポジトリをクローンして中に入る
+- docker/php/Dockerfile の DOCKER_UID をホストと合わせる
 
-   ```
-   git clone https://github.com/Yuzunoha/docker-lemp-composer1.git
-
-   cd docker-lemp-composer1
-   ```
-
-1. docker/php/Dockerfile の DOCKER_UID をホストと合わせる
-
-   ```
-   # ホストのuidを調べる
-   id -u
-
-   # docker/php/Dockerfile の ARG DOCKER_UID=1000 の右辺を↑で調べた値にする
-   vim docker/php/Dockerfile
-   ```
-
-1. 起動する
-
-   ```
-   docker-compose up -d
-   ```
-
-1. php コンテナの bash を実行する
-
-   ```
-   docker-compose exec php bash
-   ```
-
-1. コンテナの bash を抜ける
-
-   ```
-   # 下記のショートカットキーを入力する
-   ctrl + p + q
-   ```
-
-## laravel をインストールする
-
-- php コンテナの /var/www/html で下記のコマンドを実行する
   ```
-  composer create-project --prefer-dist laravel/laravel=6.* mylaravelapp
+  # ホストのuidを調べる
+  id -u
+
+  # docker/php/Dockerfile の ARG DOCKER_UID=1000 の右辺を↑で調べた値にする
+  vim docker/php/Dockerfile
   ```
 
-## cakephp をインストールする
+  - Mac ではこの手順は不要との説もある
+  - Linux ではこれをやらないとゲスト側で作成したファイルをホスト側で編集できなくなる
+  - Windows は知らん
 
-- php コンテナの /var/www/html で下記のコマンドを実行する
+## docker の起動方法
+
+- docker-compose.yml がある場所で下記のコマンドを実行する。初回起動は時間がかかる
+
   ```
-  composer create-project --prefer-dist cakephp/app:^3.8 mycakephpapp
+  docker-compose up -d
   ```
+
+## docker の終了方法
+
+- docker-compose.yml がある場所で下記のコマンドを実行する
+  ```
+  docker-compose down
+  ```
+
+## 起動中のコンテナの bash を実行する方法
+
+- php コンテナの場合
+
+  ```
+  docker-compose exec php bash
+  ```
+
+- msyql コンテナの場合
+  ```
+  docker-compose exec mysql bash
+  ```
+
+## 起動中のコンテナの bash を終了する方法
+
+- コンテナの bash 内で下記のショートカットキーを入力する
+
+  ```
+  ctrl + p + q
+  ```
+
+  - コンテナの bash 内で exit コマンドを打つとコンテナ自体が終了してしまう恐れがあるらしい
+
+## ファイルの先頭からここまで書いた。一旦コミットする
 
 ## nginx のドキュメントルートを変更する
 
