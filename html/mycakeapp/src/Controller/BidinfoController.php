@@ -8,42 +8,39 @@ use App\Controller\AppController;
  *
  * @property \App\Model\Table\BidinfoTable $Bidinfo
  *
- * @method \App\Model\Entity\Bidinfo[] paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Bidinfo[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class BidinfoController extends AuctionBaseController
+class BidinfoController extends AppController
 {
-
     /**
      * Index method
      *
-     * @return \Cake\Http\Response|void
+     * @return \Cake\Http\Response|null
      */
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Biditems', 'Users']
+            'contain' => ['Biditems', 'Users'],
         ];
         $bidinfo = $this->paginate($this->Bidinfo);
 
         $this->set(compact('bidinfo'));
-        $this->set('_serialize', ['bidinfo']);
     }
 
     /**
      * View method
      *
      * @param string|null $id Bidinfo id.
-     * @return \Cake\Http\Response|void
+     * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
         $bidinfo = $this->Bidinfo->get($id, [
-            'contain' => ['Biditems', 'Users', 'Bidmessages']
+            'contain' => ['Biditems', 'Users', 'Bidmessages'],
         ]);
 
         $this->set('bidinfo', $bidinfo);
-        $this->set('_serialize', ['bidinfo']);
     }
 
     /**
@@ -66,7 +63,6 @@ class BidinfoController extends AuctionBaseController
         $biditems = $this->Bidinfo->Biditems->find('list', ['limit' => 200]);
         $users = $this->Bidinfo->Users->find('list', ['limit' => 200]);
         $this->set(compact('bidinfo', 'biditems', 'users'));
-        $this->set('_serialize', ['bidinfo']);
     }
 
     /**
@@ -74,12 +70,12 @@ class BidinfoController extends AuctionBaseController
      *
      * @param string|null $id Bidinfo id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
         $bidinfo = $this->Bidinfo->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $bidinfo = $this->Bidinfo->patchEntity($bidinfo, $this->request->getData());
@@ -93,7 +89,6 @@ class BidinfoController extends AuctionBaseController
         $biditems = $this->Bidinfo->Biditems->find('list', ['limit' => 200]);
         $users = $this->Bidinfo->Users->find('list', ['limit' => 200]);
         $this->set(compact('bidinfo', 'biditems', 'users'));
-        $this->set('_serialize', ['bidinfo']);
     }
 
     /**

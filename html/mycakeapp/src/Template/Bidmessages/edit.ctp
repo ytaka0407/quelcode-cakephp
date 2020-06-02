@@ -25,7 +25,6 @@
         <?php
             echo $this->Form->control('bidinfo_id');
             echo $this->Form->control('user_id', ['options' => $users]);
-            echo $this->Form->control('sendto_id');
             echo $this->Form->control('message');
         ?>
     </fieldset>

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -8,42 +9,39 @@ use App\Controller\AppController;
  *
  * @property \App\Model\Table\BidmessagesTable $Bidmessages
  *
- * @method \App\Model\Entity\Bidmessage[] paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Bidmessage[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class BidmessagesController extends AuctionBaseController
+class BidmessagesController extends AppController
 {
-
     /**
      * Index method
      *
-     * @return \Cake\Http\Response|void
+     * @return \Cake\Http\Response|null
      */
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Bidinfos', 'Users', 'Sendtos']
+            'contain' => ['Bidinfo', 'Users'],
         ];
         $bidmessages = $this->paginate($this->Bidmessages);
 
         $this->set(compact('bidmessages'));
-        $this->set('_serialize', ['bidmessages']);
     }
 
     /**
      * View method
      *
      * @param string|null $id Bidmessage id.
-     * @return \Cake\Http\Response|void
+     * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
         $bidmessage = $this->Bidmessages->get($id, [
-            'contain' => ['Bidinfos', 'Users', 'Sendtos']
+            'contain' => ['Bidinfo', 'Users'],
         ]);
 
         $this->set('bidmessage', $bidmessage);
-        $this->set('_serialize', ['bidmessage']);
     }
 
     /**
@@ -63,11 +61,9 @@ class BidmessagesController extends AuctionBaseController
             }
             $this->Flash->error(__('The bidmessage could not be saved. Please, try again.'));
         }
-        $bidinfos = $this->Bidmessages->Bidinfos->find('list', ['limit' => 200]);
+        $bidinfo = $this->Bidmessages->Bidinfo->find('list', ['limit' => 200]);
         $users = $this->Bidmessages->Users->find('list', ['limit' => 200]);
-        $sendtos = $this->Bidmessages->Sendtos->find('list', ['limit' => 200]);
-        $this->set(compact('bidmessage', 'bidinfos', 'users', 'sendtos'));
-        $this->set('_serialize', ['bidmessage']);
+        $this->set(compact('bidmessage', 'bidinfo', 'users'));
     }
 
     /**
@@ -75,12 +71,12 @@ class BidmessagesController extends AuctionBaseController
      *
      * @param string|null $id Bidmessage id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
         $bidmessage = $this->Bidmessages->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $bidmessage = $this->Bidmessages->patchEntity($bidmessage, $this->request->getData());
@@ -91,11 +87,9 @@ class BidmessagesController extends AuctionBaseController
             }
             $this->Flash->error(__('The bidmessage could not be saved. Please, try again.'));
         }
-        $bidinfos = $this->Bidmessages->Bidinfos->find('list', ['limit' => 200]);
+        $bidinfo = $this->Bidmessages->Bidinfo->find('list', ['limit' => 200]);
         $users = $this->Bidmessages->Users->find('list', ['limit' => 200]);
-        $sendtos = $this->Bidmessages->Sendtos->find('list', ['limit' => 200]);
-        $this->set(compact('bidmessage', 'bidinfos', 'users', 'sendtos'));
-        $this->set('_serialize', ['bidmessage']);
+        $this->set(compact('bidmessage', 'bidinfo', 'users'));
     }
 
     /**

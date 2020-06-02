@@ -31,10 +31,6 @@
             <td><?= $this->Number->format($bidmessage->bidinfo_id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Sendto Id') ?></th>
-            <td><?= $this->Number->format($bidmessage->sendto_id) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Created') ?></th>
             <td><?= h($bidmessage->created) ?></td>
         </tr>

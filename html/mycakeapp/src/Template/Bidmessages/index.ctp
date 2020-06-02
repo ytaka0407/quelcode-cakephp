@@ -20,7 +20,6 @@
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('bidinfo_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('sendto_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -31,7 +30,6 @@
                 <td><?= $this->Number->format($bidmessage->id) ?></td>
                 <td><?= $this->Number->format($bidmessage->bidinfo_id) ?></td>
                 <td><?= $bidmessage->has('user') ? $this->Html->link($bidmessage->user->id, ['controller' => 'Users', 'action' => 'view', $bidmessage->user->id]) : '' ?></td>
-                <td><?= $this->Number->format($bidmessage->sendto_id) ?></td>
                 <td><?= h($bidmessage->created) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $bidmessage->id]) ?>

@@ -8,42 +8,39 @@ use App\Controller\AppController;
  *
  * @property \App\Model\Table\BidrequestsTable $Bidrequests
  *
- * @method \App\Model\Entity\Bidrequest[] paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Bidrequest[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class BidrequestsController extends AuctionBaseController
+class BidrequestsController extends AppController
 {
-
     /**
      * Index method
      *
-     * @return \Cake\Http\Response|void
+     * @return \Cake\Http\Response|null
      */
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Biditems', 'Users']
+            'contain' => ['Biditems', 'Users'],
         ];
         $bidrequests = $this->paginate($this->Bidrequests);
 
         $this->set(compact('bidrequests'));
-        $this->set('_serialize', ['bidrequests']);
     }
 
     /**
      * View method
      *
      * @param string|null $id Bidrequest id.
-     * @return \Cake\Http\Response|void
+     * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
         $bidrequest = $this->Bidrequests->get($id, [
-            'contain' => ['Biditems', 'Users']
+            'contain' => ['Biditems', 'Users'],
         ]);
 
         $this->set('bidrequest', $bidrequest);
-        $this->set('_serialize', ['bidrequest']);
     }
 
     /**
@@ -66,7 +63,6 @@ class BidrequestsController extends AuctionBaseController
         $biditems = $this->Bidrequests->Biditems->find('list', ['limit' => 200]);
         $users = $this->Bidrequests->Users->find('list', ['limit' => 200]);
         $this->set(compact('bidrequest', 'biditems', 'users'));
-        $this->set('_serialize', ['bidrequest']);
     }
 
     /**
@@ -74,12 +70,12 @@ class BidrequestsController extends AuctionBaseController
      *
      * @param string|null $id Bidrequest id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
         $bidrequest = $this->Bidrequests->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $bidrequest = $this->Bidrequests->patchEntity($bidrequest, $this->request->getData());
@@ -93,7 +89,6 @@ class BidrequestsController extends AuctionBaseController
         $biditems = $this->Bidrequests->Biditems->find('list', ['limit' => 200]);
         $users = $this->Bidrequests->Users->find('list', ['limit' => 200]);
         $this->set(compact('bidrequest', 'biditems', 'users'));
-        $this->set('_serialize', ['bidrequest']);
     }
 
     /**

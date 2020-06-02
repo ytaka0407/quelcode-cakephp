@@ -8,46 +8,39 @@ use App\Controller\AppController;
  *
  * @property \App\Model\Table\BiditemsTable $Biditems
  *
- * @method \App\Model\Entity\Biditem[] paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Biditem[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class BiditemsController extends AuctionBaseController
+class BiditemsController extends AppController
 {
-
-	public function initialize(){
-		parent::initialize();
-	}
-
-	/**
+    /**
      * Index method
      *
-     * @return \Cake\Http\Response|void
+     * @return \Cake\Http\Response|null
      */
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Users']
+            'contain' => ['Users'],
         ];
         $biditems = $this->paginate($this->Biditems);
 
         $this->set(compact('biditems'));
-        $this->set('_serialize', ['biditems']);
     }
 
     /**
      * View method
      *
      * @param string|null $id Biditem id.
-     * @return \Cake\Http\Response|void
+     * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
         $biditem = $this->Biditems->get($id, [
-            'contain' => ['Users', 'Bidinfo', 'Bidrequests']
+            'contain' => ['Users', 'Bidinfo', 'Bidrequests'],
         ]);
 
         $this->set('biditem', $biditem);
-        $this->set('_serialize', ['biditem']);
     }
 
     /**
@@ -62,14 +55,13 @@ class BiditemsController extends AuctionBaseController
             $biditem = $this->Biditems->patchEntity($biditem, $this->request->getData());
             if ($this->Biditems->save($biditem)) {
                 $this->Flash->success(__('The biditem has been saved.'));
-				print_r($this->request->getData());
-                //return $this->redirect(['action' => 'index']);
+
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The biditem could not be saved. Please, try again.'));
         }
         $users = $this->Biditems->Users->find('list', ['limit' => 200]);
         $this->set(compact('biditem', 'users'));
-        $this->set('_serialize', ['biditem']);
     }
 
     /**
@@ -77,12 +69,12 @@ class BiditemsController extends AuctionBaseController
      *
      * @param string|null $id Biditem id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
         $biditem = $this->Biditems->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $biditem = $this->Biditems->patchEntity($biditem, $this->request->getData());
@@ -95,7 +87,6 @@ class BiditemsController extends AuctionBaseController
         }
         $users = $this->Biditems->Users->find('list', ['limit' => 200]);
         $this->set(compact('biditem', 'users'));
-        $this->set('_serialize', ['biditem']);
     }
 
     /**

@@ -109,7 +109,6 @@
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Bidinfo Id') ?></th>
                 <th scope="col"><?= __('User Id') ?></th>
-                <th scope="col"><?= __('Sendto Id') ?></th>
                 <th scope="col"><?= __('Message') ?></th>
                 <th scope="col"><?= __('Created') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -119,7 +118,6 @@
                 <td><?= h($bidmessages->id) ?></td>
                 <td><?= h($bidmessages->bidinfo_id) ?></td>
                 <td><?= h($bidmessages->user_id) ?></td>
-                <td><?= h($bidmessages->sendto_id) ?></td>
                 <td><?= h($bidmessages->message) ?></td>
                 <td><?= h($bidmessages->created) ?></td>
                 <td class="actions">

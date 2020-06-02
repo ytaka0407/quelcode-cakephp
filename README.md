@@ -56,7 +56,17 @@
 
   - コンテナの bash 内で exit コマンドを打つとコンテナ自体が終了してしまう恐れがあるらしい
 
-## ファイルの先頭からここまで書いた。一旦コミットする
+##
+
+## php コンテナに cakephp をインストールする方法
+
+- php コンテナの bash で/var/www/html/mycakeapp に移動して下記コマンドを実行する
+
+  ```
+  composer install
+  ```
+
+  - 時間が掛かる。最後に質問プロンプトが出たら yes と回答する
 
 ## nginx のドキュメントルートを変更する
 
@@ -81,17 +91,7 @@
        ...
      ```
 
-1. コンテナを再起動する
-
-   ```
-   # 停止
-   docker-compose down
-
-   # 起動
-   docker-compose up -d
-   ```
-
-1. ブラウザで http://localhost:10080 にアクセスすると laravel または cakephp のトップページが表示される
+1) ブラウザで http://localhost:10080 にアクセスすると laravel または cakephp のトップページが表示される
 
 ## 備考
 
