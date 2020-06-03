@@ -1,6 +1,6 @@
 # docker-mycakeapp2
 
-- CakePHP 超入門のサンプルアプリ:mycakeapp(オークションアプリ)の docker 環境
+- CakePHP 超入門のオークションアプリの docker 環境
 
 ## docker 起動前の準備
 
