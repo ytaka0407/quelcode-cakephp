@@ -73,7 +73,11 @@
   composer install
   ```
 
-  - 時間がかかる。最後に質問プロンプトが出たら yes と回答する
+  - 時間がかかる。質問プロンプトが出たら Y と回答する
+
+    ```
+    Set Folder Permissions ? (Default to Y) [Y,n]? Y
+    ```
 
 ## migration
 
