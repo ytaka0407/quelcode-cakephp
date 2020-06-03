@@ -16,7 +16,7 @@
 
   - Linux ではこれをやらないとゲスト側で作成したファイルをホスト側で編集できなくなる
   - Mac ではこの手順は不要との説もある
-  - Windows では WSL の利用を推奨
+  - Windows の人は WSL (Windows Subsystem for Linux) を使おう
 
 ## docker の起動方法
 
