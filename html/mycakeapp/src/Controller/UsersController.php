@@ -55,7 +55,8 @@ class UsersController extends AppController
             // Authのidentifyをユーザーに設定
             if (!empty($user)) {
                 $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
+                // return $this->redirect($this->Auth->redirectUrl());
+                return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
             }
             $this->Flash->error('ユーザー名かパスワードが間違っています。');
         }
