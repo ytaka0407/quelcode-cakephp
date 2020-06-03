@@ -29,6 +29,7 @@
 ## docker の終了方法
 
 - docker-compose.yml がある場所で下記のコマンドを実行する
+
   ```
   docker-compose down
   ```
@@ -42,10 +43,13 @@
   ```
 
 - msyql コンテナの場合
+
   ```
   docker-compose exec mysql bash
   ```
+
   - mysql コマンドラインの起動方法
+
     ```
     # mysql コンテナの bash で
     mysql -u root -p # パスワードは"root"
@@ -60,8 +64,6 @@
   ```
 
   - コンテナの bash で exit コマンドを打つとコンテナ自体が終了してしまう恐れがある
-
-##
 
 ## php コンテナに cakephp をインストールする方法
 
@@ -94,6 +96,7 @@
 ## nginx のドキュメントルートを変更する方法
 
 - docker/nginx/default.conf を編集することで nginx のドキュメントルートを変更可能
+
   ```diff
   server {
   - root  /var/www/html/mycakeapp/webroot;
