@@ -42,6 +42,8 @@
   docker-compose exec php bash
   ```
 
+  - php コンテナの bash では composer コマンドや ./bin/cake ファイルが実行可能です！
+
 - msyql コンテナの場合
 
   ```
