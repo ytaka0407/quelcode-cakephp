@@ -89,9 +89,11 @@
   ./bin/cake migrations migrate
   ```
 
-## ブラウザで nginx のドキュメントルートを表示する方法
+## ブラウザで テキストに記載されている url にアクセスする方法
 
-- http://localhost:10080 にアクセスする
+- 下記のように読みかえてアクセスする。nginx コンテナ の port とドキュメントルートを設定しているため
+  - http://localhost/mycakeapp/hello.html ⇒ http://localhost:10080/hello.html
+  - http://localhost/mycakeapp/auction/add ⇒ http://localhost:10080/auction/add
 
 ## ブラウザで phpMyAdmin を表示する方法
 
