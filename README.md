@@ -89,6 +89,10 @@
   ./bin/cake migrations migrate
   ```
 
+## ブラウザで nginx のドキュメントルートを表示する方法
+
+- http://localhost:10080 にアクセスする
+
 ## ブラウザで phpMyAdmin を表示する方法
 
 - http://localhost:10081 にアクセスする
