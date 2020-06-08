@@ -89,10 +89,11 @@
   ./bin/cake migrations migrate
   ```
 
-## ブラウザで オークションアプリを表示する方法
+## ブラウザで オークションアプリを表示する方法(課題用のブランチにおいて)
 
 - http://localhost:10080/auction にアクセスする
   - http://localhost:10080/users/add からユーザを作成できる
+  - サンプルコードが入っている課題用のブランチでないとアクセスできません
 
 ## ブラウザで phpMyAdmin を表示する
 
