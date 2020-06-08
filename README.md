@@ -89,7 +89,7 @@
   ./bin/cake migrations migrate
   ```
 
-## ブラウザで phpMyAdmin を表示する
+## ブラウザで phpMyAdmin を表示する方法
 
 - http://localhost:10081 にアクセスする
   - root 権限で操作可能
