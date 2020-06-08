@@ -89,15 +89,20 @@
   ./bin/cake migrations migrate
   ```
 
-## ブラウザで オークションアプリを表示する方法
+## ブラウザで nginx のドキュメントルートを表示する方法
 
-- http://localhost:10080/auction にアクセスする
-  - http://localhost:10080/users/add からユーザを作成できる
+- http://localhost:10080 にアクセスする
 
-## ブラウザで phpMyAdmin を表示する
+## ブラウザで phpMyAdmin を表示する方法
 
 - http://localhost:10081 にアクセスする
   - root 権限で操作可能
+
+## ブラウザで オークションアプリを表示する方法(課題用のブランチにおいて)
+
+- http://localhost:10080/auction にアクセスする
+  - http://localhost:10080/users/add からユーザを作成できる
+  - サンプルコードが入っている課題用のブランチでないとアクセスできません
 
 ## nginx のドキュメントルートを変更する方法
 
