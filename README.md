@@ -80,7 +80,7 @@
 
 1. cakephp アプリをブラウザで表示する
 
-   - http://localhost:10080 にアクセスして cakephp の赤いページが表示されたらセットアップ成功
+   - http://localhost:10380 にアクセスして cakephp の赤いページが表示されたらセットアップ成功
    - このセットアップ手順により CakePHP 超入門 Chapter1 の環境構築作業を飛ばせる
 
 ## 備考
@@ -113,18 +113,18 @@
 ## ブラウザで テキストに記載されている url にアクセスする方法
 
 - 下記のように port を指定し、mycakeapp を省略してアクセスする
-  - http://localhost/mycakeapp/hello.html ⇒ http://localhost:10080/hello.html
-  - http://localhost/mycakeapp/auction/add ⇒ http://localhost:10080/auction/add
+  - http://localhost/mycakeapp/hello.html ⇒ http://localhost:10380/hello.html
+  - http://localhost/mycakeapp/auction/add ⇒ http://localhost:10380/auction/add
 
 ## ブラウザで オークションアプリを表示する方法(課題用のブランチにおいて)
 
-- http://localhost:10080/auction にアクセスする
-  - http://localhost:10080/users/add からユーザを作成できる
+- http://localhost:10380/auction にアクセスする
+  - http://localhost:10380/users/add からユーザを作成できる
   - clone 直後の master ブランチには存在しない。課題用のブランチにおいて migration を行う必要がある
 
 ## ブラウザで phpMyAdmin を表示する方法
 
-- http://localhost:10081 にアクセスする
+- http://localhost:10381 にアクセスする
   - root 権限で操作可能
 
 ## nginx のドキュメントルートを変更する方法
