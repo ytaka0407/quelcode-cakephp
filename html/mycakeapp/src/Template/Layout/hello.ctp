@@ -10,13 +10,13 @@
 
 <body>
     <header class="head row">
-        <h1><?= $this->fetch('title') ?></h1>
+        <?= $this->element('header', $header) ?>
     </header>
     <div class="content row">
         <?= $this->fetch('content') ?>
     </div>
     <footer class="foot row">
-        <h5>copyright 2021 yui</h5>
+        <?= $this->element('footer', $footer) ?>
     </footer>
 </body>
 

@@ -14,6 +14,8 @@ class HelloController extends AppController
 
     public function index()
     {
+        $this->set('hhh', ['subtitle' => 'from controller']);
+        $this->set('fff', ['copyright' => 'itsuki', 'email' => 'itsuitsu.com']);
     }
 
     public function form()
