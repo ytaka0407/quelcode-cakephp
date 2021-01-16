@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 
 <head>
     <?= $this->Html->charset(); ?>
@@ -18,3 +19,5 @@
     </div>
     <?= $this->Form->end() ?>
 </body>
+
+</html>
