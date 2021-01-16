@@ -8,7 +8,7 @@ class PeopleController extends AppController
 {
     public function index()
     {
-        $data = $this->People->find('all');
+        $data = $this->People->find('list')->toArray();
         $this->set('data', $data);
     }
 }
