@@ -9,15 +9,13 @@ class PeopleController extends AppController
     public function index()
     {
         if ($this->request->is('post')) {
-            $name1 = '%' . $this->request->data['People']['name1'] . '%';
-            $name2 = '%' . $this->request->data['People']['name2'] . '%';
+            $find = $this->request->data['People']['find'];
             $condition = [
-                'conditions' => [
-                    'or' => [
-                        'name like' => $name1,
-                        'name like' => $name2
-                    ]
-                ]
+                'conditions' => ['age >=' => $find],
+                'order' => ['age' => 'asc'],
+                'limit' => 3,
+                'offset' => 0,
+                'page' => 2
             ];
             $data = $this->People->find('all', $condition);
         } else {

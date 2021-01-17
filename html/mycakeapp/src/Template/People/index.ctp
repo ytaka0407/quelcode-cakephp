@@ -9,10 +9,8 @@
 <body>
     <p>This is People table records</p>
     <?= $this->Form->create(null, ['type' => 'post', 'url' => ['controller' => 'People', 'action' => 'index']]) ?>
-    <div>name1</div>
-    <div><?= $this->Form->text('People.name1') ?></div>
-    <div>name2</div>
-    <div><?= $this->Form->text('People.name2') ?></div>
+    <div>find</div>
+    <div><?= $this->Form->text('People.find') ?></div>
     <div><?= $this->Form->submit('検索') ?></div>
     <?= $this->Form->end ?>
     <table>
