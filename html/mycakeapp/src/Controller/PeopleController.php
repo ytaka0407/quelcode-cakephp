@@ -8,7 +8,22 @@ class PeopleController extends AppController
 {
     public function index()
     {
-        $data = $this->People->find('all');
+        if ($this->request->is('post')) {
+            $name1 = '%' . $this->request->data['People']['name1'] . '%';
+            $name2 = '%' . $this->request->data['People']['name2'] . '%';
+            $condition = [
+                'conditions' => [
+                    'or' => [
+                        'name like' => $name1,
+                        'name like' => $name2
+                    ]
+                ]
+            ];
+            $data = $this->People->find('all', $condition);
+        } else {
+            $data = $this->People->find('all');
+        }
+
         $this->set('data', $data);
     }
 
