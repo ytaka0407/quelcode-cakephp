@@ -20,7 +20,20 @@ class PeopleController extends AppController
 
     public function add()
     {
+        //デフォルト(初回アクセスの時)は、ウェルカムメッセージと$newEntity()
+        $msg = 'please type your personal data...';
         $entity = $this->People->newEntity();
+        //ポスト送信されてたら、データの作成に入る
+        if ($this->request->is('post')) {
+            $data = $this->request->data['People'];
+            $entity = $this->People->newEntity($data);
+            if ($this->People->save($entity)) {
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $msg = 'Error was occured...';
+            }
+        }
+        $this->set('msg', $msg);
         $this->set('entity', $entity);
     }
 
