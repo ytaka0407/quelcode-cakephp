@@ -6,15 +6,21 @@ use App\Controller\AppController;
 
 class PeopleController extends AppController
 {
+    public $paginate = [
+        'finder' => 'ByAge',
+        'limit' => 5,
+        'contain' => ['Messages'],
+    ];
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+    }
+
     public function index()
     {
-        if ($this->request->is('post')) {
-            $find = $this->request->data['People']['find'];
-            $data = $this->People->find()->where(['name ' => $find])->order(['age' => 'asc']);
-        } else {
-            $data = $this->People->find('all');
-        }
-
+        $data = $this->paginate($this->People);
         $this->set('data', $data);
     }
 
