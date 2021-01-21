@@ -1,7 +1,8 @@
 <?php
+
 namespace App\Controller;
 
-use App\Controller\AppController;
+use App\Controller\AuctionBaseController;
 
 /**
  * Bidinfo Controller
