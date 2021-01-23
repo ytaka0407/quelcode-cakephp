@@ -48,6 +48,7 @@ class AuctionController extends AuctionBaseController
             'contain' => ['Users', 'Bidinfo', 'Bidinfo.Users']
         ]);
 
+        //終わったオークションの情報を更新
         if ($biditem->endtime < new \DateTime('now') and $biditem->finised == 0) {
             //finishedを1に変更して保存
             $biditem->finished = 1;
@@ -102,5 +103,70 @@ class AuctionController extends AuctionBaseController
         $this->set(compact('biditem'));
     }
 
-    //入札処理(ここから)
+    //入札処理
+    public function bid($biditem_id = null)
+    {
+        $bidrequest = $this->Bidrequests->newentity();
+        $bidrequest->biditem_id = $biditem_id;
+        $bidrequest->user_id = $this->Auth->user('id');
+
+        if ($this->request->is('post')) {
+            $bidrequest = $this->Bidrequests->patchentity($bidrequest, $this->request->getData());
+            if ($this->bidrequests->save($bidrequest)) {
+                $this->Flash->success(__('入札を送信しました。'));
+                return $this->redirect(['action' => 'view', $biditem_id]);
+            }
+            $this->Flash->error(__('入札に失敗しました。もう一度入力下さい'));
+            $biditem = $this->Biditem->get($biditem_id);
+            $this->set(compact('bidrequest', 'biditem'));
+        }
+    }
+
+    public function msg($bidinfo_id = null)
+    {
+        //newentity
+        $bidmsg = $this->Bidmessages->newEntity();
+        if ($this->request->is('post')) {
+            $bidmsg = $this->Bidmessages->patchEntity($bidmsg, $this->request->getData());
+
+            if ($this->Bidmessages->save($bidmsg)) {
+                $this->Flash->success(__('保存しました。'));
+            } else {
+                $this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
+            }
+            try {
+                $bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain' => ['Biditems']]);
+            } catch (Exception $e) {
+                $bidinfo = null;
+            }
+            //Bidmessageを$bidinfo_idとuser_idで検索
+            $bidmsgs = $this->Bidmessages->find('all', [
+                'conditions' => ['bidinfo_id' => $bidinfo_id],
+                'contain' => ['Users'],
+                'order' => ['created' => 'desc']
+            ]);
+            $this->set(compact('bidmsg', 'bidinfo', 'bidmsg'));
+        }
+    }
+    public function home()
+    {
+        $bidinfo = $this->paginate('Bidinfo', [
+            'conditions' => ['Bidinfo.user_id' => $this->Auth->user('id')],
+            'contain' => ['Users', 'Biditems'],
+            'order' => ['created' => 'desc'],
+            'limit' => '10'
+        ])->toArray();
+        $this->set(compact('bidinfo'));
+    }
+
+    public function home2()
+    {
+        $biditems = $this->paginate('Bidinfo', [
+            'conditions' => ['Biitems.user_id' => $this->Auth->user('id')],
+            'contain' => ['Users', 'Bidingo'],
+            'order' => ['created' => 'desc'],
+            'limit' => 20
+        ])->toArray;
+        $this->set(compact('biditems'));
+    }
 }
