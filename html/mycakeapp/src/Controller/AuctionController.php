@@ -64,11 +64,11 @@ class AuctionController extends AuctionBaseController
                 'contain' => ['users'],
                 'order' => ['price' => 'desc']
             ])->first();
+            //入札があった場合
             if (!empty($bidrequest)) {
                 //エンティティ$bidinfoの各種プロパティを設定して保存する
-                $bidinfo->user_id = $bidrequest->user->id;
-                //$bidinfo->user=$bidrequest->user; 教科書にあるけどいらないのでは？
-                $bidinfo->user = $bidrequest->user;
+                $bidinfo->user_id = $bidrequest->user_id;
+                $bidinfo->user = $bidrequest->user; //教科書にあるけどいらないのでは？
                 $bidinfo->price = $bidrequest->price;
                 $this->Bidinfo->save($bidinfo);
             }
@@ -145,7 +145,7 @@ class AuctionController extends AuctionBaseController
                 'contain' => ['Users'],
                 'order' => ['created' => 'desc']
             ]);
-            $this->set(compact('bidmsg', 'bidinfo', 'bidmsg'));
+            $this->set(compact('bidmsgs', 'bidinfo', 'bidmsg'));
         }
     }
     public function home()
