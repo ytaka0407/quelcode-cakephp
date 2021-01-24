@@ -28,7 +28,7 @@ class AuctionController extends AuctionBaseController
 
         $this->set('authuser', $this->Auth->user());
 
-        $this->viewBuilder()->setLayout('action');
+        $this->viewBuilder()->setLayout('auction');
     }
 
     public function index()
@@ -49,7 +49,7 @@ class AuctionController extends AuctionBaseController
         ]);
 
         //終わったオークションの情報を更新
-        if ($biditem->endtime < new \DateTime('now') and $biditem->finised == 0) {
+        if ($biditem->endtime < new \DateTime('now') and $biditem->finished == 0) {
             //finishedを1に変更して保存
             $biditem->finished = 1;
             $this->Biditems->save($biditem);
@@ -59,25 +59,25 @@ class AuctionController extends AuctionBaseController
             //エンティティは$biditem_idだけに値がある状態。
             $bidinfo->biditem_id = $id;
             //bidinfoに入れるために最高金額のBidrequestのデータをまとめて取得
-            $bidrequest = $this->Bidrequests->find(
-                'all',
-                ['conditions' => ['biditem_id' => $id]],
-                ['contain' => ['users']],
-                ['order' => ['price' => 'desc']]
-            )->first();
+            $bidrequest = $this->Bidrequests->find('all', [
+                'conditions' => ['biditem_id' => $id],
+                'contain' => ['users'],
+                'order' => ['price' => 'desc']
+            ])->first();
             if (!empty($bidrequest)) {
                 //エンティティ$bidinfoの各種プロパティを設定して保存する
-                $bidinfo->user_id = $bidrequest->user_id;
+                $bidinfo->user_id = $bidrequest->user->id;
                 //$bidinfo->user=$bidrequest->user; 教科書にあるけどいらないのでは？
+                $bidinfo->user = $bidrequest->user;
                 $bidinfo->price = $bidrequest->price;
                 $this->Bidinfo->save($bidinfo);
             }
             //変数$biditemのbidinfoに$bidinfoを設定
-            $biditem->bidinfo = $$bidinfo;
+            $biditem->bidinfo = $bidinfo;
         }
         //Bidrequestからbiditem_idが$idのものを取得
-        $bidrequest = $this->Bidrequests->find('all', [
-            'conditions' => ['price' => 'desc'],
+        $bidrequests = $this->Bidrequests->find('all', [
+            'conditions' => ['biditem_id' => $id],
             'contain' => ['Users'],
             'order' => ['price' => 'desc']
         ])->toArray();
