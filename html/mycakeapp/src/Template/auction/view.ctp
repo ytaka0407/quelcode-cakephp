@@ -35,9 +35,9 @@
             </th>
         </tr>
         <tr>
-            <td><?= h($biditem->bidinfo->user->username) ?></td>
+            <td><?= h($biditem->user->username) ?></td>
             <td><?= h($biditem->bidinfo->price) ?>円</td>
-            <td><?= h($biditem->bidinfo->endtime) ?></td>
+            <td><?= h($biditem->endtime) ?></td>
         </tr>
     </table>
     <?php else : ?>
