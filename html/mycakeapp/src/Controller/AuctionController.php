@@ -134,19 +134,20 @@ class AuctionController extends AuctionBaseController
             } else {
                 $this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
             }
-            try {
-                $bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain' => ['Biditems']]);
-            } catch (Exception $e) {
-                $bidinfo = null;
-            }
-            //Bidmessageを$bidinfo_idとuser_idで検索
-            $bidmsgs = $this->Bidmessages->find('all', [
-                'conditions' => ['bidinfo_id' => $bidinfo_id],
-                'contain' => ['Users'],
-                'order' => ['created' => 'desc']
-            ]);
-            $this->set(compact('bidmsgs', 'bidinfo', 'bidmsg'));
         }
+        try {
+            $bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain' => ['Biditems']]);
+        } catch (Exception $e) {
+            $bidinfo = null;
+        }
+
+        //Bidmessageを$bidinfo_idとuser_idで検索
+        $bidmsgs = $this->Bidmessages->find('all', [
+            'conditions' => ['bidinfo_id' => $bidinfo_id],
+            'contain' => ['Users'],
+            'order' => ['created' => 'desc']
+        ]);
+        $this->set(compact('bidmsgs', 'bidinfo', 'bidmsg'));
     }
     public function home()
     {
@@ -161,12 +162,12 @@ class AuctionController extends AuctionBaseController
 
     public function home2()
     {
-        $biditems = $this->paginate('Bidinfo', [
-            'conditions' => ['Biitems.user_id' => $this->Auth->user('id')],
-            'contain' => ['Users', 'Bidingo'],
+        $biditems = $this->paginate('Biditems', [
+            'conditions' => ['Biditems.user_id' => $this->Auth->user('id')],
+            'contain' => ['Users', 'Bidinfo'],
             'order' => ['created' => 'desc'],
             'limit' => 20
-        ])->toArray;
+        ])->toArray();
         $this->set(compact('biditems'));
     }
 }
