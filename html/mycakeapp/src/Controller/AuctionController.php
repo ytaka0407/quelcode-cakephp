@@ -112,14 +112,14 @@ class AuctionController extends AuctionBaseController
 
         if ($this->request->is('post')) {
             $bidrequest = $this->Bidrequests->patchentity($bidrequest, $this->request->getData());
-            if ($this->bidrequests->save($bidrequest)) {
+            if ($this->Bidrequests->save($bidrequest)) {
                 $this->Flash->success(__('入札を送信しました。'));
                 return $this->redirect(['action' => 'view', $biditem_id]);
             }
             $this->Flash->error(__('入札に失敗しました。もう一度入力下さい'));
-            $biditem = $this->Biditem->get($biditem_id);
-            $this->set(compact('bidrequest', 'biditem'));
         }
+        $biditem = $this->Biditems->get($biditem_id);
+        $this->set(compact('bidrequest', 'biditem'));
     }
 
     public function msg($bidinfo_id = null)
