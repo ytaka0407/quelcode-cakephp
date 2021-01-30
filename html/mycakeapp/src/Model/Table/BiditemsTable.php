@@ -73,6 +73,22 @@ class BiditemsTable extends Table
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
 
+        $validator->scalar('description', 'テキストを入力下さい・')
+            ->requirePresence('description', 'create')
+            ->maxLength('description', 1000)
+            ->notEmptystring('description', '商品説明は必ず記入して下さい。');
+
+        $validator->requirePresence('image', 'create')
+            ->notEmptystring('image', '商品説明は必ず記入して下さい。')
+            ->add(
+                'image',
+                'custom',
+                [
+                    'rule' => 'extension', ['jpg', 'png', 'JPG', 'JPEG'],
+                    'message' => '拡張子がjpg・//png・JPG・JPEGの画像のみアップロード可能です。'
+                ]
+            );
+
         $validator
             ->boolean('finished')
             ->requirePresence('finished', 'create')
