@@ -92,17 +92,29 @@ class AuctionController extends AuctionBaseController
         $biditem = $this->Biditems->newEntity();
         // POST送信時の処理
         if ($this->request->is('post')) {
+            //dd($this->request->getData());
             // $biditemにフォームの送信内容を反映
             $biditem = $this->Biditems->patchEntity($biditem, $this->request->getData());
-            // $biditemを保存する
-            if ($this->Biditems->save($biditem)) {
-                // 成功時のメッセージ
-                $this->Flash->success(__('保存しました。'));
-                // トップページ（index）に移動
-                return $this->redirect(['action' => 'index']);
+            $file = $this->request->getData('file');
+            //ファイルアップロード
+            $filepath = WWW_ROOT . '/Biditemimages/' . date("YmdHis") . $file['name'];
+            $success = move_uploaded_file($file['tmp_name'], $filepath);
+            $filename = $success ? $file['name'] : NULL;
+            if ($filename) {
+                $biditem->image = $filename;
+                //dd($biditem);
+                // $biditemを保存する
+                if ($this->Biditems->save($biditem)) {
+                    // 成功時のメッセージ
+                    $this->Flash->success(__('保存しました。'));
+                    // トップページ（index）に移動
+                    return $this->redirect(['action' => 'index']);
+                }
+                // 失敗時のメッセージ
+                $this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
+            } else {
+                $this->Flash->error(__('ファイルのアップロードに失敗しました。もう一度入力下さい'));
             }
-            // 失敗時のメッセージ
-            $this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
         }
         // 値を保管
         $this->set(compact('biditem'));
