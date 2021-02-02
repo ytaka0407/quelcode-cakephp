@@ -6,10 +6,11 @@
     echo $this->Form->hidden('user_id', ['value' => $authuser['id']]);
     echo '<p><strong>USER: ' . $authuser['username'] . '</strong></p>';
     echo $this->Form->control('name');
-    echo $this->Form->control('description', ['style' => 'height:100px']);
+    echo $this->Form->control('description', ['rows' => '5']);
     echo $this->Form->hidden('finished', ['value' => 0]);
     echo $this->Form->control('endtime');
     echo $this->Form->file('file');
+    echo $this->Form->error('file');
     ?>
 </fieldset>
 <?= $this->Form->button(__('Submit')) ?>
