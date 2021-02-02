@@ -63,6 +63,7 @@ class BiditemsTable extends Table
      */
     public function validationDefault(Validator $validator)
     {
+
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
@@ -79,13 +80,20 @@ class BiditemsTable extends Table
             ->notEmptystring('description', '商品説明は必ず記入して下さい。');
 
         $validator->requirePresence('image', 'create')
-            ->notEmptystring('image', '商品説明は必ず記入して下さい。')
             ->add(
-                'image',
-                'custom',
+                'file',
+                'ext',
                 [
-                    'rule' => 'extension', ['jpg', 'png', 'JPG', 'JPEG'],
-                    'message' => '拡張子がjpg・//png・JPG・JPEGの画像のみアップロード可能です。'
+                    'rule' => ['extension', ['jpg', 'png', 'JPG', 'JPEG']],
+                    'message' => '※拡張子がjpg・png・JPG・JPEGの画像のみアップロード可能です。'
+                ]
+            )
+            ->add(
+                'file',
+                'filesize',
+                [
+                    'rule' => ['filesize', '<', '5000000'],
+                    'message' => '※ファイルサイズの上限は5MBです。'
                 ]
             );
 
