@@ -11,6 +11,9 @@ use Cake\Filesystem\File;
 
 class AuctionController extends AuctionBaseController
 {
+
+    const filepath = WWW_ROOT . 'Biditemimages/';
+
     // デフォルトテーブルを使わない
     public $useTable = false;
 
@@ -96,13 +99,17 @@ class AuctionController extends AuctionBaseController
             // $biditemにフォームの送信内容を反映
             $biditem = $this->Biditems->patchEntity($biditem, $this->request->getData());
             $file = $this->request->getData('file');
+            //ファイル名確定
+            $filename = date("YmdHis") . $file['name'];
+
             //ファイルアップロード
-            $filepath = WWW_ROOT . '/Biditemimages/' . date("YmdHis") . $file['name'];
-            $success = move_uploaded_file($file['tmp_name'], $filepath);
-            $filename = $success ? $file['name'] : NULL;
+            //ファイルパスはユーザー定義定数として設定
+            $success = move_uploaded_file($file['tmp_name'], self::filepath . $filename);
+            //アップロードに失敗した場合は$filenameはNULLに変更
+            $filename = $success ? $filename : NULL;
             if ($filename) {
+                //$biditem->imageには$filenameを代入
                 $biditem->image = $filename;
-                //dd($biditem);
                 // $biditemを保存する
                 if ($this->Biditems->save($biditem)) {
                     // 成功時のメッセージ
