@@ -74,9 +74,9 @@ class AuctionController extends AuctionBaseController
                 $bidinfo->user = $bidrequest->user;
                 $bidinfo->price = $bidrequest->price;
                 $this->Bidinfo->save($bidinfo);
+                // Biditemのbidinfoに$bidinfoを設定
+                $biditem->bidinfo = $bidinfo;
             }
-            // Biditemのbidinfoに$bidinfoを設定
-            $biditem->bidinfo = $bidinfo;
         }
         // Bidrequestsからbiditem_idが$idのものを取得
         $bidrequests = $this->Bidrequests->find('all', [
