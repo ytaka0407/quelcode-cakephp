@@ -104,7 +104,6 @@ class AuctionController extends AuctionBaseController
             $request['image'] = $filename;
             //全ての要素が$requestにそろったので、$biditemにフォームの送信内容と確定させたファイル名を反映バリデーション
             $biditem = $this->Biditems->patchEntity($biditem, $request);
-            //dd($biditem->errors());
             if (!$biditem->errors()) {
                 //バリデーション結果に問題なければファイルアップロード
                 //ファイルパスはユーザー定義定数として設定
