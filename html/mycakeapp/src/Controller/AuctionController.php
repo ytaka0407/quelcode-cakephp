@@ -95,32 +95,33 @@ class AuctionController extends AuctionBaseController
         $biditem = $this->Biditems->newEntity();
         // POST送信時の処理
         if ($this->request->is('post')) {
-            //dd($this->request->getData());
-            // $biditemにフォームの送信内容を反映
-            $biditem = $this->Biditems->patchEntity($biditem, $this->request->getData());
+            //POSTデータを$requestに一旦保存
+            $request = $this->request->getData();
+            //ファイル名を取得させ、ファイル名を確定させる
             $file = $this->request->getData('file');
-            //ファイル名確定
             $filename = date("YmdHis") . $file['name'];
-
-            //ファイルアップロード
-            //ファイルパスはユーザー定義定数として設定
-            $success = move_uploaded_file($file['tmp_name'], self::filepath . $filename);
-            //アップロードに失敗した場合は$filenameはNULLに変更
-            $filename = $success ? $filename : NULL;
-            if ($filename) {
-                //$biditem->imageには$filenameを代入
-                $biditem->image = $filename;
-                // $biditemを保存する
-                if ($this->Biditems->save($biditem)) {
+            //$request['image']にファイル名セット(データベース格納用)
+            $request['image'] = $filename;
+            //全ての要素が$requestにそろったので、$biditemにフォームの送信内容と確定させたファイル名を反映バリデーション
+            $biditem = $this->Biditems->patchEntity($biditem, $request);
+            //dd($biditem->errors());
+            if (!$biditem->errors()) {
+                //バリデーション結果に問題なければファイルアップロード
+                //ファイルパスはユーザー定義定数として設定
+                $success = move_uploaded_file($file['tmp_name'], self::filepath . $filename);
+                //アップロードに成功したらエンティティ保存。画像保存前にバリデーションは済んでいるので分岐は省略
+                if ($success) {
+                    $this->Biditems->save($biditem);
                     // 成功時のメッセージ
                     $this->Flash->success(__('保存しました。'));
                     // トップページ（index）に移動
                     return $this->redirect(['action' => 'index']);
                 }
-                // 失敗時のメッセージ
-                $this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
+                // 画像保存失敗時のメッセージ
+                $this->Flash->error(__('画像の保存に失敗しました。もう一度入力下さい。'));
             } else {
-                $this->Flash->error(__('ファイルのアップロードに失敗しました。もう一度入力下さい'));
+                //バリデーションエラー時のメッセージ
+                $this->Flash->error(__('出品に失敗しました。もう一度入力下さい'));
             }
         }
         // 値を保管
