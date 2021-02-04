@@ -31,7 +31,7 @@
         </tr>
     </table>
     <figure class="biditem-img">
-        <?= $this->Html->image('../Biditemimages/' . $biditem['image'], ['alt' => '商品画像']); ?>
+        <?= $this->Html->image('../Biditemimages/' . h($biditem['image']), ['alt' => '商品画像']); ?>
     </figure>
 </div>
 <div class="related">
