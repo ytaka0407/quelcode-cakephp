@@ -29,3 +29,13 @@ nav.sidebar {
 .infomation-block{
     display:flex;
 }
+
+.biditem-img{
+    margin:0px 0px 0px 50px;
+    vertical-align: bottom;
+}
+
+img{
+    max-width: 300px;
+    max-height:300px;
+}
