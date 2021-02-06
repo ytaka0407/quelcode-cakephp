@@ -84,7 +84,7 @@ class BiditemsTable extends Table
                 'file',
                 'ext',
                 [
-                    'rule' => ['extension', ['jpg', 'png', 'JPG', 'JPEG']],
+                    'rule' => ['extension', ['jpg', 'png', 'jpeg']],
                     'message' => '※拡張子がjpg・png・JPG・JPEGの画像のみアップロード可能です。'
                 ]
             )
