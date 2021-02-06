@@ -92,7 +92,7 @@ class BiditemsTable extends Table
                 'file',
                 'filesize',
                 [
-                    'rule' => ['filesize', '<', '5000000'],
+                    'rule' => ['filesize', '<', '5242880'],
                     'message' => '※ファイルサイズの上限は5MBです。'
                 ]
             );
